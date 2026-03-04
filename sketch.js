@@ -47,4 +47,27 @@ for (let x=0; x<tileHigh; x++){
 
 function draw() {
   background("black");
+
+  for (let a=0; a<tileHigh; a++){
+  for (let b=0; b<tileWide; b++){
+    let x=b*tileSize;
+    let y=a*tileSize;
+    let tile=map[a][b]
+    if(tile===0){
+      if((a+b)%2===0){
+        image(græs1, x, y, tileSize, tileSize)
+      } else {
+        image(græs2, x, y, tileSize, tileSize)
+      }
+      
+    }
+    if(tile===1){
+      image(vejVandret, x, y, tileSize, tileSize)
+    }
+    if(tile===2){
+      image(bygning1, x, y, tileSize, tileSize)
+    }
+  }}
+
+
 }
