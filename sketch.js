@@ -7,7 +7,7 @@ const ROAD = 1;
 const BUILDING = 2;
 const STOP = 3;
 
-let map = [];
+let map = []; //array til kortet
 
 let græs1, græs2;
 let bygning1, bygning2, bygning3;
@@ -16,8 +16,8 @@ let vejHjørneVO, vejHjørneHO, vejHjørneVN, vejHjørneHN;
 let tVejO, tVejN, tVejV, tVejH;
 let vejKryds;
 
-class Tile {
-  constructor(row, col, type) {
+class Tile { //en tile
+  constructor(row, col, type) { //den gemmel rækken og kolonnen altså x og y, men også typen 
     this.row = row;
     this.col = col;
     this.type = type;
@@ -25,9 +25,9 @@ class Tile {
 
   draw() {
     let x = this.col * tileSize;
-    let y = this.row * tileSize;
+    let y = this.row * tileSize; //fra atributter til pixels
 
-    if (this.type === GRASS) {
+    if (this.type === GRASS) { //tegnet græs men hvor det skifter mellem den ene og den anden
       if ((this.row + this.col) % 2 === 0) {
         image(græs1, x, y, tileSize, tileSize);
       } else {
@@ -35,10 +35,10 @@ class Tile {
       }
     }
 
-    if (this.type === ROAD || this.type === STOP) {
+    if (this.type === ROAD || this.type === STOP) { //tegner vej
       drawRoad(this.row, this.col, x, y);
 
-      if (this.type === STOP) {
+      if (this.type === STOP) { //tegnet stoppested ovenpå vej
         fill("red");
         rect(x + 6, y + 6, 12, 12);
       }
@@ -78,23 +78,23 @@ function setup() {
   createCanvas(tileWide * tileSize, tileHigh * tileSize);
   noStroke();
 
-  makeMap();
-  generateRandomMap();
+  makeMap(); //laver et map kun med græs
+  generateRandomMap(); //generere et map med huse og veje
 }
 
 function draw() {
   background(0);
-  drawMap();
+  drawMap(); //tegner kortet
 }
 
-function makeMap() {
+function makeMap() { //laver arrayet og objekterne
   map = [];
 
   for (let row = 0; row < tileHigh; row++) {
     let currentRow = [];
 
     for (let col = 0; col < tileWide; col++) {
-      currentRow.push(new Tile(row, col, GRASS));
+      currentRow.push(new Tile(row, col, GRASS)); //alle tiles starter som græs
     }
 
     map.push(currentRow);
@@ -119,7 +119,7 @@ function setBuilding(row, col) {
   if (insideMap(row, col)) {
     map[row][col].type = BUILDING;
   }
-}
+} //laver typen af tile om
 
 function setStop(row, col) {
   if (insideMap(row, col)) {
@@ -130,18 +130,18 @@ function setStop(row, col) {
 function insideMap(row, col) {
   if (row < 0 || row >= tileHigh) return false;
   if (col < 0 || col >= tileWide) return false;
-  return true;
+  return true; //tjekker om den er inden for mappet
 }
 
 function isRoad(row, col) {
   if (!insideMap(row, col)) {
-    return false;
+    return false; 
   }
 
-  return map[row][col].type === ROAD || map[row][col].type === STOP;
+  return map[row][col].type === ROAD || map[row][col].type === STOP; //tjekker for vej eller stoppested
 }
 
-function drawRoad(row, col, x, y) {
+function drawRoad(row, col, x, y) { //bestemmer hvilket billede der skal bruges
   let op = isRoad(row - 1, col);
   let ned = isRoad(row + 1, col);
   let venstre = isRoad(row, col - 1);
@@ -210,7 +210,7 @@ function drawRoad(row, col, x, y) {
   image(vejVandret, x, y, tileSize, tileSize);
 }
 
-function getBuildingImage(row, col) {
+function getBuildingImage(row, col) { //vælger et af bygningsbillederne
   let tal = (row + col) % 3;
 
   if (tal === 0) {
@@ -222,7 +222,7 @@ function getBuildingImage(row, col) {
   return bygning3;
 }
 
-function randomInt(min, max) {
+function randomInt(min, max) { //lavet et tilfædldigt tal, til retningen, længden og altal af veje
   return floor(random(min, max + 1));
 }
 
