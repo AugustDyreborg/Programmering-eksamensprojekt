@@ -83,34 +83,8 @@ function setup() {
 }
 
 function draw() {
-<<<<<<< HEAD
-  background("black");
-
-  for (let a=0; a<tileHigh; a++){
-  for (let b=0; b<tileWide; b++){
-    let x=b*tileSize;
-    let y=a*tileSize;
-    let tile=map[a][b]
-    if(tile===0){
-      if((a+b)%2===0){
-        image(græs1, x, y, tileSize, tileSize)
-      } else {
-        image(græs2, x, y, tileSize, tileSize)
-      }
-      
-    }
-    if(tile===1){
-      image(vejVandret, x, y, tileSize, tileSize)
-    }
-    if(tile===2){
-      image(bygning1, x, y, tileSize, tileSize)
-    }
-  }}
-
-=======
   background(0);
   drawMap(); //tegner kortet
->>>>>>> 8642b441c3b23d94e86c0b61da775fe91d4702ec
 }
 
 function makeMap() { //laver arrayet og objekterne
